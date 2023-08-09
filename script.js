@@ -5,7 +5,7 @@ import ShareFile from './shareFile.js';
 
 
 const shareFile = new ShareFile()
-const pathMount = '/home/desarrollo/solicitudes/'
+const pathMount = '/home/desarrollo/solicitudes'
 //const regexSearchByMonth = RegExp(`2023-${config.month.toString().padStart(2, '0')}-([0-9][1-9])`, 'g');
 
 ;(async () => {
@@ -37,11 +37,9 @@ const pathMount = '/home/desarrollo/solicitudes/'
     let pathFile = `${pathMount}/${monthGestion}/${dayGestion}`
     let files = listFiles[pathFile]
 
-    console.log(pathFile);
 
     if(!listFiles[pathFile]) {
       files = await shareFile.readdir(pathFile)
-      console.log(files);
       listFiles[pathFile] = files
       console.log('Num files', pathFile, files.length)
     }
@@ -50,8 +48,10 @@ const pathMount = '/home/desarrollo/solicitudes/'
 
     if(fileExists) {
       console.log(`Rename: ${pathFile}/${fileExists} => ${pathFile}/${newNameFile}.mp3`)
-      //await shareFile.rename(`01/04/out-V1041859590009951029-3124274648-20220104-185959-1641340799.84793.gsm.mp3`, `01/04/test.mp3`)
+      await shareFile.rename(`${pathFile}/20220105-175908_3157471461_DAVIVI09_M1051759080009982928-all.mp3`, `${pathFile}/test.mp3`)
     }
   }
 
 })()
+
+//20220105-175908_3157471461_DAVIVI09_M1051759080009982928-all.mp3

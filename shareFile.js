@@ -26,7 +26,7 @@ class ShareFile {
 
   rename(oldPath, newPath) {
     return new Promise((resolve, reject ) => {
-      this.smb2Client.rename(oldPath, newPath, (err) => {
+      fs.rename(oldPath, newPath, (err) => {
         if(err) reject(err)
 
         resolve('file has been renamed')
