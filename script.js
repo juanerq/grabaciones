@@ -2,7 +2,7 @@ import postgres from './database/postgres.js'
 import { queryGetRecordingName } from './query.js'
 import { input } from '@inquirer/prompts';
 import ShareFile from './shareFile.js';
-
+import { exec } from 'child_process'
 
 const shareFile = new ShareFile()
 const pathMount = '/home/desarrollo/solicitudes'
@@ -48,7 +48,19 @@ const pathMount = '/home/desarrollo/solicitudes'
 
     if(fileExists) {
       console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
-      await shareFile.rename(`${pathFile}/${fileExists}`, `${pathFile}/${newNameFile}.mp3`)
+
+      exec(`sudo mv /home/desarrollo/solicitudes/01/04/20220104-080459_3108205685_DAVIVI09_M1040804590009946164-all.mp3 /home/desarrollo/solicitudes/01/04/cob_Lex_3108205685_1641301992000.mp3`, (error, stdout, stderr) => {
+          if (error) {
+              console.log(`error: ${error.message}`);
+              return;
+          }
+          if (stderr) {
+              console.log(`stderr: ${stderr}`);
+              return;
+          }
+          console.log(`stdout: ${stdout}`);
+      });
+      //await shareFile.rename(`${pathFile}/${fileExists}`, `${pathFile}/${newNameFile}.mp3`)
     }
   }
 
