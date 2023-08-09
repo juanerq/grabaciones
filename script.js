@@ -5,7 +5,7 @@ import ShareFile from './shareFile.js';
 
 
 const shareFile = new ShareFile()
-
+const pathMount = '/home/desarrollo/solicitudes/'
 //const regexSearchByMonth = RegExp(`2023-${config.month.toString().padStart(2, '0')}-([0-9][1-9])`, 'g');
 
 ;(async () => {
@@ -34,11 +34,13 @@ const shareFile = new ShareFile()
 
     const newNameFile = `cob_Lex_${telefono.trim()}_${date.getTime()}`
 
-    let pathFile = `${monthGestion}/${dayGestion}`
+    let pathFile = `${pathMount}/${monthGestion}/${dayGestion}`
     let files = listFiles[pathFile]
 
+    console.log(pathFile);
+
     if(!listFiles[pathFile]) {
-      files = await shareFile.readdir('/home/desarrollo/solicitudes')
+      files = await shareFile.readdir(pathFile)
       console.log(files);
       listFiles[pathFile] = files
       console.log('Num files', pathFile, files.length)
