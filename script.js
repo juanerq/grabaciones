@@ -47,8 +47,8 @@ const pathMount = '/home/desarrollo/solicitudes'
     const fileExists = files.find(file => file === fileName)
 
     if(fileExists) {
-      console.log(`Rename: ${pathFile}/${fileExists} => ${pathFile}/${newNameFile}.mp3`)
-      await shareFile.rename(`${pathFile}/20220105-175908_3157471461_DAVIVI09_M1051759080009982928-all.mp3`, `${pathFile}/test.mp3`)
+      console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
+      await shareFile.rename(`${pathFile}/${fileExists}`, `${pathFile}/${newNameFile}.mp3`)
     }
   }
 
