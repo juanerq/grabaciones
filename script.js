@@ -75,7 +75,7 @@ const pathMount = '/home/desarrollo/solicitudes'
   const json = await shareFile.readdir(pathMount)
   let notExists = []
   json.forEach(e => {
-    const nameJson = e.replace('.json', '')
+    const nameJson = e.split('_').slice(0, 4).join('_')
     const exists = listFilesAll.find(f => f.includes(nameJson))
     if(!exists) {
       notExists.push(nameJson)
