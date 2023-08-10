@@ -3,6 +3,7 @@ import { queryGetRecordingName } from './query.js'
 import { input } from '@inquirer/prompts';
 import ShareFile from './shareFile.js';
 import { exec } from 'child_process'
+import fs from 'fs'
 
 const shareFile = new ShareFile()
 const pathMount = '/home/desarrollo/solicitudes'
@@ -46,7 +47,7 @@ const pathMount = '/home/desarrollo/solicitudes'
 
     const fileExists = files.find(file => file === fileName)
 
-    if(fileExists) {
+    if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
       console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
 
       exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFile}.mp3`, (error, stdout, stderr) => {
