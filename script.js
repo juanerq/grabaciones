@@ -25,7 +25,7 @@ const pathMount = '/home/desarrollo/solicitudes'
   const listFiles = {}
 
   for(const gestion of gestiones) {
-    let { gestion_fecha, location, telefono } = gestion
+    let { gestion_fecha, location, telefono, deudor_id } = gestion
     if(!location) continue
 
     const fileName = location.split('/').pop()
@@ -33,7 +33,7 @@ const pathMount = '/home/desarrollo/solicitudes'
     const dayGestion = (date.getDate()).toString().padStart(2, '0')
     const monthGestion = (date.getMonth() + 1).toString().padStart(2, '0')
 
-    const newNameFile = `cob_Lex_${telefono.trim()}_${date.getTime()}`
+    const newNameFile = `cob_Lex_${deudor_id.trim()}_${telefono.trim()}_${date.getTime()}`
    
     let pathFile = `${pathMount}/${monthGestion}/${dayGestion}`
     let files = listFiles[pathFile]
