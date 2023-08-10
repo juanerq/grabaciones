@@ -76,13 +76,14 @@ const pathMount = '/home/desarrollo/solicitudes'
   let notExists = []
   json.forEach(e => {
     const nameJson = e.replace('.json')
-    const exists = countFiles.find(f => f.includes(nameJson))
+    const exists = listFilesAll.find(f => f.includes(nameJson))
     if(!exists) {
       notExists.push(nameJson)
     }
   });
 
-  console.log({notExists});
+  console.log(notExists);
+  console.log(notExists.length)
 })()
 
 //20220105-175908_3157471461_DAVIVI09_M1051759080009982928-all.mp3
