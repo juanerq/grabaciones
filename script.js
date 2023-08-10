@@ -33,8 +33,6 @@ const pathMount = '/home/desarrollo/solicitudes'
     const dayGestion = (date.getDate()).toString().padStart(2, '0')
     const monthGestion = (date.getMonth() + 1).toString().padStart(2, '0')
 
-    if(dayGestion != day.toString().padStart(2, '0')) continue
-
     const newNameFile = `cob_Lex_${telefono.trim()}_${date.getTime()}`
    
     let pathFile = `${pathMount}/${monthGestion}/${dayGestion}`
