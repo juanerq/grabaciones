@@ -25,7 +25,7 @@ const pathMount = '/home/desarrollo/solicitudes'
   const listFiles = {}
 
   for(const gestion of gestiones) {
-    let { gestion_fecha, location, telefono, deudor_id } = gestion
+    let { gestion_fecha, location, telefono } = gestion
     if(!location) continue
 
     const fileName = location.split('/').pop()
@@ -34,8 +34,6 @@ const pathMount = '/home/desarrollo/solicitudes'
     const monthGestion = (date.getMonth() + 1).toString().padStart(2, '0')
 
     const newNameFile = `cob_Lex_${telefono.trim()}_${date.getTime()}`
-    const newNameFil2 = `cob_Lex_${deudor_id.trim()}_${telefono.trim()}_${date.getTime()}`
-
    
     let pathFile = `${pathMount}/${monthGestion}/${dayGestion}`
     let files = listFiles[pathFile]
@@ -46,12 +44,12 @@ const pathMount = '/home/desarrollo/solicitudes'
       console.log('Num files', pathFile, files.length)
     }
 
-    const fileExists = files.find(file => file.includes(newNameFile))
+    const fileExists = files.find(file => file === fileName)
 
     if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
-      console.log(`Rename: ${fileExists} => ${newNameFil2}.mp3`)
+      console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
 
-      exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFil2}.mp3`, (error, stdout, stderr) => {
+      exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFile}.mp3`, (error, stdout, stderr) => {
           if (error) {
               console.log(`error: ${error.message}`);
               return;
