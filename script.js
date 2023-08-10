@@ -41,8 +41,8 @@ const pathMount = '/home/desarrollo/solicitudes'
     
     
     if(!listFiles[pathFile]) {
-      const count = files.filter(file => file.includes('cob_Lex_'))
       files = await shareFile.readdir(pathFile)
+      const count = files.filter(file => file.includes('cob_Lex_'))
       listFiles[pathFile] = files
       console.log('Num files', pathFile, files.length, count.length)
     }
