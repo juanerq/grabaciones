@@ -4,6 +4,7 @@ import { input } from '@inquirer/prompts';
 import ShareFile from './shareFile.js';
 import { exec } from 'child_process'
 import fs from 'fs'
+import { formatDate } from './utils/index.js';
 
 const shareFile = new ShareFile()
 const pathMount = '/home/desarrollo/solicitudes'
@@ -31,13 +32,16 @@ const pathMount = '/home/desarrollo/solicitudes'
     if(!location) continue
 
     const fileName = location.split('/').pop()
-    const date = new Date(gestion_fecha)
-    const dayGestion = (date.getDate()).toString().padStart(2, '0')
-    const monthGestion = (date.getMonth() + 1).toString().padStart(2, '0')
+    const debtorString = deudor_id.toString().trim().padStart(19, '0')
 
-    const newNameFile = `cob_Lex_${deudor_id.trim()}_${telefono.trim()}_${date.getTime()}`
+    const { format, dateObj, day, month } = formatDate(gestion_fecha)
+
+
+    const newNameFile = `cob_Lex_${deudor_id.trim()}_${telefono.trim()}_${dateObj.getTime()}`
+    const newNameFileValid = (`COB_LEX_${debtorString}_${format}`).toUpperCase()
+
    
-    let pathFile = `${pathMount}/${monthGestion}/${dayGestion}`
+    let pathFile = `${pathMount}/${month}/${day}`
     let files = listFiles[pathFile]
 
     
@@ -53,7 +57,7 @@ const pathMount = '/home/desarrollo/solicitudes'
 
     const fileExists = files.find(file => file === fileName)
     
-   /*  if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
+    if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
       console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
 
       exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFile}.mp3`, (error, stdout, stderr) => {
@@ -67,12 +71,10 @@ const pathMount = '/home/desarrollo/solicitudes'
           }
           console.log(`stdout: ${fileExists} => ${newNameFile}.mp3`);
       });
-      //await shareFile.rename(`${pathFile}/${fileExists}`, `${pathFile}/${newNameFile}.mp3`)
-    } */
-
+    } 
   }
 
-  const json = await shareFile.readdir(pathMount)
+/*   const json = await shareFile.readdir(pathMount)
   let notExists = []
   json.forEach(e => {
     const nameJson = e.split('_').slice(0, 4).join('_')
@@ -83,7 +85,5 @@ const pathMount = '/home/desarrollo/solicitudes'
   });
 
   console.log(notExists);
-  console.log(notExists.length)
+  console.log(notExists.length) */
 })()
-
-//20220105-175908_3157471461_DAVIVI09_M1051759080009982928-all.mp3
