@@ -32,12 +32,13 @@ const pathMount = '/home/desarrollo/solicitudes'
     const date = new Date(gestion_fecha)
     const dayGestion = (date.getDate()).toString().padStart(2, '0')
     const monthGestion = (date.getMonth() + 1).toString().padStart(2, '0')
-    if(dayGestion != '04') continue
+
+    if(dayGestion != day.toString().padStart(2, '0')) continue
+
     const newNameFile = `cob_Lex_${telefono.trim()}_${date.getTime()}`
    
     let pathFile = `${pathMount}/${monthGestion}/${dayGestion}`
     let files = listFiles[pathFile]
-
 
     if(!listFiles[pathFile]) {
       files = await shareFile.readdir(pathFile)
@@ -46,7 +47,7 @@ const pathMount = '/home/desarrollo/solicitudes'
     }
 
     const fileExists = files.find(file => file === fileName)
-    console.log(fileExists);
+
     if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
       console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
 
