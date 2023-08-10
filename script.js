@@ -23,9 +23,7 @@ const pathMount = '/home/desarrollo/solicitudes'
   const [gestiones] = await postgres.query(query, { raw: true })
   console.log('Num gestiones', date, gestiones.length);
 
-  let countFiles = 0 
   const listFiles = {}
-  let listFilesAll = []
 
   for(const gestion of gestiones) {
     let { gestion_fecha, location, telefono, deudor_id } = gestion
@@ -48,19 +46,16 @@ const pathMount = '/home/desarrollo/solicitudes'
     
     if(!listFiles[pathFile]) {
       files = await shareFile.readdir(pathFile)
-      const count = files.filter(file => file.includes('cob_Lex_'))
-      listFilesAll = [...listFilesAll, ...count ]
-      countFiles += count.length
       listFiles[pathFile] = files
-      console.log('Num files', pathFile, files.length, count.length)
+      console.log('Num files', pathFile, files.length)
     }
 
-    const fileExists = files.find(file => file === fileName)
+    const fileExists = files.find(file => file.toUpperCase().includes(fileName.toUpperCase()))
     
     if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
-      console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
+      console.log(`Rename: ${fileExists} => ${newNameFileValid}.mp3`)
 
-      exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFile}.mp3`, (error, stdout, stderr) => {
+      exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFileValid}.mp3`, (error, stdout, stderr) => {
           if (error) {
               console.log(`error: ${error.message}`);
               return;
@@ -69,7 +64,7 @@ const pathMount = '/home/desarrollo/solicitudes'
               console.log(`stderr: ${stderr}`);
               return;
           }
-          console.log(`stdout: ${fileExists} => ${newNameFile}.mp3`);
+          console.log(`stdout: ${fileExists} => ${newNameFileValid}.mp3`);
       });
     } 
   }
