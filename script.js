@@ -38,14 +38,17 @@ const pathMount = '/home/desarrollo/solicitudes'
     let pathFile = `${pathMount}/${monthGestion}/${dayGestion}`
     let files = listFiles[pathFile]
 
+    
+    
     if(!listFiles[pathFile]) {
+      const count = files.filter(file => file.includes('cob_Lex_'))
       files = await shareFile.readdir(pathFile)
       listFiles[pathFile] = files
-      console.log('Num files', pathFile, files.length)
+      console.log('Num files', pathFile, files.length, count.length)
     }
 
     const fileExists = files.find(file => file === fileName)
-
+    
     if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
       console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
 
