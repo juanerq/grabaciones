@@ -58,7 +58,7 @@ const pathMount = '/home/desarrollo/solicitudes'
               console.log(`stderr: ${stderr}`);
               return;
           }
-          console.log(`stdout: ${stdout}`);
+          console.log(`stdout: ${fileExists} => ${newNameFile}.mp3`);
       });
       //await shareFile.rename(`${pathFile}/${fileExists}`, `${pathFile}/${newNameFile}.mp3`)
     }
