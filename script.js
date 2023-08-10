@@ -47,7 +47,7 @@ const pathMount = '/home/desarrollo/solicitudes'
       files = await shareFile.readdir(pathFile)
       listFiles[pathFile] = files
 
-      console.log('Num files', pathFile, files.length, count.length)
+      console.log('Num files', pathFile, files.length)
     }
 
     const fileExists = files.find(file => file.toUpperCase().includes(newNameFile.toUpperCase()))
