@@ -55,7 +55,7 @@ const pathMount = '/home/desarrollo/solicitudes'
     if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
       console.log(`Rename: ${fileExists} => ${newNameFileValid}.mp3`)
 
-      exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFileValid}.mp3`, (error, stdout, stderr) => {
+      /* exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFileValid}.mp3`, (error, stdout, stderr) => {
           if (error) {
               console.log(`error: ${error.message}`);
               return;
@@ -65,7 +65,7 @@ const pathMount = '/home/desarrollo/solicitudes'
               return;
           }
           console.log(`stdout: ${fileExists} => ${newNameFileValid}.mp3`);
-      });
+      }); */
     } 
   }
 
