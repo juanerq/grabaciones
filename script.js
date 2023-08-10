@@ -24,6 +24,7 @@ const pathMount = '/home/desarrollo/solicitudes'
 
   let countFiles = 0 
   const listFiles = {}
+  let listFilesAll = []
 
   for(const gestion of gestiones) {
     let { gestion_fecha, location, telefono, deudor_id } = gestion
@@ -44,6 +45,7 @@ const pathMount = '/home/desarrollo/solicitudes'
     if(!listFiles[pathFile]) {
       files = await shareFile.readdir(pathFile)
       const count = files.filter(file => file.includes('cob_Lex_'))
+      listFilesAll = [...listFilesAll, ...count ]
       countFiles += count.length
       listFiles[pathFile] = files
       console.log('Num files', pathFile, files.length, count.length)
@@ -51,7 +53,7 @@ const pathMount = '/home/desarrollo/solicitudes'
 
     const fileExists = files.find(file => file === fileName)
     
-    if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
+   /*  if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
       console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
 
       exec(`sudo mv ${pathFile}/${fileExists} ${pathFile}/${newNameFile}.mp3`, (error, stdout, stderr) => {
@@ -66,10 +68,21 @@ const pathMount = '/home/desarrollo/solicitudes'
           console.log(`stdout: ${fileExists} => ${newNameFile}.mp3`);
       });
       //await shareFile.rename(`${pathFile}/${fileExists}`, `${pathFile}/${newNameFile}.mp3`)
-    }
+    } */
 
   }
-  console.log({countFiles});
+
+  const json = await shareFile.readdir(pathMount)
+  let notExists = []
+  json.forEach(e => {
+    const nameJson = e.replace('.json')
+    const exists = countFiles.find(f => f.includes(nameJson))
+    if(!exists) {
+      notExists.push(nameJson)
+    }
+  });
+
+  console.log({notExists});
 })()
 
 //20220105-175908_3157471461_DAVIVI09_M1051759080009982928-all.mp3
