@@ -22,6 +22,7 @@ const pathMount = '/home/desarrollo/solicitudes'
   const [gestiones] = await postgres.query(query, { raw: true })
   console.log('Num gestiones', date, gestiones.length);
 
+  let countFiles = 0 
   const listFiles = {}
 
   for(const gestion of gestiones) {
@@ -43,6 +44,7 @@ const pathMount = '/home/desarrollo/solicitudes'
     if(!listFiles[pathFile]) {
       files = await shareFile.readdir(pathFile)
       const count = files.filter(file => file.includes('cob_Lex_'))
+      countFiles += count.length
       listFiles[pathFile] = files
       console.log('Num files', pathFile, files.length, count.length)
     }
@@ -65,8 +67,9 @@ const pathMount = '/home/desarrollo/solicitudes'
       });
       //await shareFile.rename(`${pathFile}/${fileExists}`, `${pathFile}/${newNameFile}.mp3`)
     }
-  }
 
+  }
+  console.log({countFiles});
 })()
 
 //20220105-175908_3157471461_DAVIVI09_M1051759080009982928-all.mp3
