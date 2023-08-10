@@ -46,7 +46,7 @@ const pathMount = '/home/desarrollo/solicitudes'
     }
 
     const fileExists = files.find(file => file === fileName)
-
+    console.log(fileExists);
     if(fileExists && fs.existsSync(`${pathFile}/${fileExists}`)) {
       console.log(`Rename: ${fileExists} => ${newNameFile}.mp3`)
 
