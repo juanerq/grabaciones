@@ -39,7 +39,7 @@ const pathMount = '/home/desarrollo/solicitudes'
     const newNameFileValid = (`COB_LEX_${debtorString}_${format}`).toUpperCase()
 
    
-    let pathFile = `${pathMount}/${month}/${day}`
+    let pathFile = `${pathMount}/${month}`
     let files = listFiles[pathFile]
 
     
